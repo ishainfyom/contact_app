@@ -3,12 +3,10 @@
 namespace App\Filament\Resources\Contacts\Widgets;
 
 use App\Models\Contact;
-use App\Models\Product;
 use Filament\Actions\BulkActionGroup;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
-use Illuminate\Database\Eloquent\Builder;
 
 class ContactProducts extends TableWidget
 {
@@ -18,7 +16,6 @@ class ContactProducts extends TableWidget
     {
         return '';
     }
-
 
     public function table(Table $table): Table
     {
@@ -30,6 +27,7 @@ class ContactProducts extends TableWidget
                         return $contact->products();
                     }
                 }
+
                 return null;
             })
             ->columns([
@@ -38,15 +36,15 @@ class ContactProducts extends TableWidget
                     ->searchable(),
                 TextColumn::make('pivot.hosted_url')
                     ->label('Hosted URL')
-                    ->url(fn($record) => $record->pivot->hosted_url)
+                    ->url(fn ($record) => $record->pivot->hosted_url)
                     ->openUrlInNewTab()
                     ->default('N/A')
                     ->limit(30),
                 TextColumn::make('pivot.autodesk')
                     ->label('Autodesk')
-                    ->formatStateUsing(fn($state) => $state ? 'Yes' : 'No')
+                    ->formatStateUsing(fn ($state) => $state ? 'Yes' : 'No')
                     ->badge()
-                    ->color(fn($state) => $state ? 'success' : 'danger'),
+                    ->color(fn ($state) => $state ? 'success' : 'danger'),
                 TextColumn::make('pivot.envato_username')
                     ->label('Envato Username')
                     ->default('N/A'),

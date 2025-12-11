@@ -5,7 +5,6 @@ namespace App\Filament\Resources\Contacts\Tables;
 use App\Models\Contact;
 use App\Models\Product;
 use App\Models\Tag;
-use Dom\Text;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
@@ -29,7 +28,7 @@ class ContactsTable
             ->columns([
                 TextColumn::make('first_name')
                     ->label('Name')
-                    ->formatStateUsing(fn($record) => $record->first_name . ' ' . $record->last_name)
+                    ->formatStateUsing(fn ($record) => $record->first_name.' '.$record->last_name)
                     ->searchable(['first_name', 'last_name']),
                 TextColumn::make('email')
                     ->label('Email')
@@ -47,10 +46,6 @@ class ContactsTable
                 ViewAction::make()
                     ->label('')
                     ->iconButton(),
-                EditAction::make()
-                    ->label('')
-                    ->iconButton()
-                    ->tooltip('Edit'),
                 Action::make('assignTags')
                     ->label('')
                     ->icon('heroicon-o-tag')
@@ -62,10 +57,10 @@ class ContactsTable
                             ->options(Tag::pluck('name', 'id')->toArray())
                             ->multiple()
                             ->required()
-                            ->default(fn(Contact $record): array => $record->tags->pluck('id')->toArray()),
+                            ->default(fn (Contact $record): array => $record->tags->pluck('id')->toArray()),
                     ])
                     ->action(function (array $data, Contact $record) {
-                        if (!empty($data['tags']) && is_array($data['tags'])) {
+                        if (! empty($data['tags']) && is_array($data['tags'])) {
                             $record->tags()->sync($data['tags']);
 
                             Notification::make()
@@ -89,13 +84,14 @@ class ContactsTable
                             ->required()
                             ->native(false)
                             ->options(Product::pluck('name', 'id'))
-                            ->default(fn(Contact $record) => $record->products->first()?->id),
+                            ->default(fn (Contact $record) => $record->products->first()?->id),
 
                         TextInput::make('hosted_url')
                             ->label('Hosted URL')
                             ->url()
                             ->default(function (Contact $record) {
                                 $firstProduct = $record->products->first();
+
                                 return $firstProduct ? $firstProduct->pivot->hosted_url : '';
                             }),
 
@@ -105,6 +101,7 @@ class ContactsTable
                             ->inline()
                             ->default(function (Contact $record) {
                                 $firstProduct = $record->products->first();
+
                                 return $firstProduct ? (bool) $firstProduct->pivot->autodesk : false;
                             }),
 
@@ -112,6 +109,7 @@ class ContactsTable
                             ->label('Envato Username')
                             ->default(function (Contact $record) {
                                 $firstProduct = $record->products->first();
+
                                 return $firstProduct ? $firstProduct->pivot->envato_username : '';
                             }),
 
@@ -120,6 +118,7 @@ class ContactsTable
                             ->password()
                             ->default(function (Contact $record) {
                                 $firstProduct = $record->products->first();
+
                                 return $firstProduct ? $firstProduct->pivot->envato_key : '';
                             })
                             ->revealable(),
@@ -142,6 +141,10 @@ class ContactsTable
                             ->success()
                             ->send();
                     }),
+                EditAction::make()
+                    ->label('')
+                    ->iconButton()
+                    ->tooltip('Edit'),
                 DeleteAction::make()
                     ->label('')
                     ->iconButton()

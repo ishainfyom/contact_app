@@ -2,13 +2,11 @@
 
 namespace App\Filament\Resources\Products\Widgets;
 
-use App\Models\Contact;
 use App\Models\Product;
 use Filament\Actions\BulkActionGroup;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
-use Illuminate\Database\Eloquent\Builder;
 
 class ProductContacts extends TableWidget
 {
@@ -29,6 +27,7 @@ class ProductContacts extends TableWidget
                         return $product->contacts();
                     }
                 }
+
                 return null;
             })
             ->columns([

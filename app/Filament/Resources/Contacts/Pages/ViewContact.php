@@ -4,9 +4,7 @@ namespace App\Filament\Resources\Contacts\Pages;
 
 use App\Filament\Resources\Contacts\ContactResource;
 use App\Filament\Resources\Contacts\Widgets\ContactProducts;
-use Dom\Text;
 use Filament\Actions\Action;
-use Filament\Actions\EditAction;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Schemas\Components\Livewire;
@@ -34,7 +32,7 @@ class ViewContact extends ViewRecord
                 Section::make()
                     ->schema([
                         TextEntry::make('first_name')
-                            ->formatStateUsing(fn($record) => $record->first_name . ' ' . $record->last_name)
+                            ->formatStateUsing(fn ($record) => $record->first_name.' '.$record->last_name)
                             ->label('Name:'),
                         TextEntry::make('email')
                             ->label('Email:'),

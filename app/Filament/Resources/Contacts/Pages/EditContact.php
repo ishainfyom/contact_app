@@ -23,5 +23,4 @@ class EditContact extends EditRecord
     {
         return 'Contact updated successfully.';
     }
-
 }

@@ -30,7 +30,7 @@ class ProductsTable
                     ->label('')
                     ->iconButton()
                     ->tooltip('View')
-                    ->url(fn($record) => ViewProduct::getUrl(['record' => $record])),
+                    ->url(fn ($record) => ViewProduct::getUrl(['record' => $record])),
                 EditAction::make()
                     ->label('')
                     ->iconButton()
