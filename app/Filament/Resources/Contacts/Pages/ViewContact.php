@@ -45,12 +45,18 @@ class ViewContact extends ViewRecord
                             ->default('N/A'),
                         TextEntry::make('website_url')
                             ->label('Website URL:')
+                            ->url(fn ($state) => $state && $state != 'N/A' ? $state : null)
+                            ->openUrlInNewTab()
                             ->default('N/A'),
                         TextEntry::make('linkedin_url')
                             ->label('LinkedIn URL:')
+                            ->url(fn ($state) => $state && $state != 'N/A' ? $state : null)
+                            ->openUrlInNewTab()
                             ->default('N/A'),
                         TextEntry::make('company_linkedin_url')
                             ->label('Company LinkedIn URL:')
+                            ->url(fn ($state) => $state && $state != 'N/A' ? $state : null)
+                            ->openUrlInNewTab()
                             ->default('N/A'),
                         TextEntry::make('apollo_id')
                             ->label('Apollo ID:')
