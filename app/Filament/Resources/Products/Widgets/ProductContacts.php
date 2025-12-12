@@ -7,6 +7,8 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
+use Ysfkaya\FilamentPhoneInput\PhoneInputNumberType;
+use Ysfkaya\FilamentPhoneInput\Tables\PhoneColumn;
 
 class ProductContacts extends TableWidget
 {
@@ -37,8 +39,11 @@ class ProductContacts extends TableWidget
                 TextColumn::make('email')
                     ->label('Email')
                     ->searchable(),
-                TextColumn::make('phone_number')
-                    ->label('Phone'),
+                PhoneColumn::make('phone_number')
+                    ->label('Phone')
+                    ->countryColumn('region_code')
+                    ->displayFormat(PhoneInputNumberType::INTERNATIONAL)
+                    ->sortable(),
                 TextColumn::make('company_name')
                     ->label('Company Name')
                     ->default('N/A'),

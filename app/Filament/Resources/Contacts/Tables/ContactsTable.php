@@ -18,6 +18,7 @@ use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Ysfkaya\FilamentPhoneInput\PhoneInputNumberType;
 use Ysfkaya\FilamentPhoneInput\Tables\PhoneColumn;
 
 class ContactsTable
@@ -27,9 +28,8 @@ class ContactsTable
         return $table
             ->defaultSort('created_at', 'desc')
             ->columns([
-                TextColumn::make('first_name')
+                TextColumn::make('full_name')
                     ->label('Name')
-                    ->formatStateUsing(fn($record) => $record->first_name . ' ' . $record->last_name)
                     ->searchable(['first_name', 'last_name']),
                 TextColumn::make('last_name')
                     ->hidden(),
@@ -41,6 +41,7 @@ class ContactsTable
                 PhoneColumn::make('phone_number')
                     ->label('Phone')
                     ->countryColumn('region_code')
+                    ->displayFormat(PhoneInputNumberType::INTERNATIONAL)
                     ->sortable()
                     ->searchable(),
             ])
