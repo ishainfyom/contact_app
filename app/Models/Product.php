@@ -17,7 +17,7 @@ class Product extends Model
         return $this->belongsToMany(Contact::class, 'contact_products')
             ->withPivot([
                 'hosted_url',
-                'autodesk',
+                'authordesk',
                 'envato_username',
                 'envato_key',
             ])

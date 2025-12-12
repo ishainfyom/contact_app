@@ -21,23 +21,23 @@ class ListContacts extends ListRecords
 
             ExportAction::make()->exports([
                 ExcelExport::make()
-                ->fromTable()
-                ->withColumns([
-                    Column::make('first_name'),
-                    Column::make('last_name'),
-                    Column::make('email'),
-                    Column::make('region_code'),
-                    Column::make('phone_number'),
-                    Column::make('country'),
-                    Column::make('city'),
-                    Column::make('designation'),
-                    Column::make('company_name'),
-                    Column::make('tags')
-                        ->formatStateUsing(fn($record) => $record->tags->pluck('name')->implode(', ')),
-                    Column::make('products')
-                        ->formatStateUsing(fn($record) => $record->products->pluck('name')->implode(', ')),
-                ]),
-            ]),
+                    ->fromTable()
+                    ->withColumns([
+                        Column::make('first_name'),
+                        Column::make('last_name'),
+                        Column::make('email'),
+                        Column::make('region_code'),
+                        Column::make('phone_number'),
+                        Column::make('country'),
+                        Column::make('city'),
+                        Column::make('designation'),
+                        Column::make('company_name'),
+                        Column::make('tags')
+                            ->formatStateUsing(fn($record) => $record->tags->pluck('name')->implode(', ')),
+                        Column::make('products')
+                            ->formatStateUsing(fn($record) => $record->products->pluck('name')->implode(', ')),
+                    ]),
+            ])->visible(fn(): bool => $this->getTableQuery()->count() > 0),
         ];
     }
 }

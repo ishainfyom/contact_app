@@ -40,8 +40,8 @@ class ContactProducts extends TableWidget
                     ->openUrlInNewTab()
                     ->default('N/A')
                     ->limit(30),
-                TextColumn::make('pivot.autodesk')
-                    ->label('Autodesk')
+                TextColumn::make('pivot.authordesk')
+                    ->label('AuthorDesk')
                     ->formatStateUsing(fn ($state) => $state ? 'Yes' : 'No')
                     ->badge()
                     ->color(fn ($state) => $state ? 'success' : 'danger'),

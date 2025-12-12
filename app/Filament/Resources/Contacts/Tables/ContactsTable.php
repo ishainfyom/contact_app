@@ -121,14 +121,14 @@ class ContactsTable
                                 return $firstProduct ? $firstProduct->pivot->hosted_url : '';
                             }),
 
-                        Radio::make('autodesk')
-                            ->label('Autodesk?')
+                        Radio::make('authordesk')
+                            ->label('AuthorDesk?')
                             ->boolean()
                             ->inline()
                             ->default(function (Contact $record) {
                                 $firstProduct = $record->products->first();
 
-                                return $firstProduct ? (bool) $firstProduct->pivot->autodesk : false;
+                                return $firstProduct ? (bool) $firstProduct->pivot->authordesk : false;
                             }),
 
                         TextInput::make('envato_username')
@@ -155,7 +155,7 @@ class ContactsTable
                         $productId = $data['product_id'];
                         $pivotData[$productId] = [
                             'hosted_url' => $data['hosted_url'] ?? null,
-                            'autodesk' => $data['autodesk'] ?? false,
+                            'authordesk' => $data['authordesk'] ?? false,
                             'envato_username' => $data['envato_username'] ?? null,
                             'envato_key' => $data['envato_key'] ?? null,
                         ];

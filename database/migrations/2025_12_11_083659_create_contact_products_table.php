@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('contact_id')->constrained()->cascadeOnDelete();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->string('hosted_url')->nullable();
-            $table->boolean('autodesk')->default(false);
+            $table->boolean('authordesk')->default(false);
             $table->string('envato_username')->nullable();
             $table->string('envato_key')->nullable();
             $table->timestamps();
