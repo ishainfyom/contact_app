@@ -16,6 +16,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Ysfkaya\FilamentPhoneInput\Tables\PhoneColumn;
 
@@ -28,7 +29,7 @@ class ContactsTable
             ->columns([
                 TextColumn::make('first_name')
                     ->label('Name')
-                    ->formatStateUsing(fn ($record) => $record->first_name.' '.$record->last_name)
+                    ->formatStateUsing(fn($record) => $record->first_name . ' ' . $record->last_name)
                     ->searchable(['first_name', 'last_name']),
                 TextColumn::make('email')
                     ->label('Email')
@@ -40,8 +41,29 @@ class ContactsTable
                     ->searchable(),
             ])
             ->filters([
-                //
+                SelectFilter::make('country')
+                    ->label('Country')
+                    ->options(function () {
+                        return array_filter(Contact::all()->pluck('country', 'country')->map(function ($country) {
+                            return $country;
+                        })->unique()->toArray() ?? []);
+                    })
+                    ->searchable()
+                    ->native(false),
+
+                SelectFilter::make('tags')
+                    ->label('Tags')
+                    ->relationship('tags', 'name')
+                    ->multiple()
+                    ->native(false),
+
+                SelectFilter::make('products')
+                    ->label('Products')
+                    ->relationship('products', 'name')
+                    ->multiple()
+                    ->native(false),
             ])
+            ->deferFilters(false)
             ->recordActions([
                 ViewAction::make()
                     ->label('')
@@ -57,7 +79,7 @@ class ContactsTable
                             ->options(Tag::pluck('name', 'id')->toArray())
                             ->multiple()
                             ->required()
-                            ->default(fn (Contact $record): array => $record->tags->pluck('id')->toArray()),
+                            ->default(fn(Contact $record): array => $record->tags->pluck('id')->toArray()),
                     ])
                     ->action(function (array $data, Contact $record) {
                         if (! empty($data['tags']) && is_array($data['tags'])) {
@@ -84,7 +106,7 @@ class ContactsTable
                             ->required()
                             ->native(false)
                             ->options(Product::pluck('name', 'id'))
-                            ->default(fn (Contact $record) => $record->products->first()?->id),
+                            ->default(fn(Contact $record) => $record->products->first()?->id),
 
                         TextInput::make('hosted_url')
                             ->label('Hosted URL')
