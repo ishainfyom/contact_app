@@ -31,8 +31,7 @@ class ViewContact extends ViewRecord
             ->components([
                 Section::make()
                     ->schema([
-                        TextEntry::make('first_name')
-                            ->formatStateUsing(fn ($record) => $record->first_name.' '.$record->last_name)
+                        TextEntry::make('full_name')
                             ->label('Name:'),
                         TextEntry::make('email')
                             ->label('Email:'),
