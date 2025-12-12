@@ -31,9 +31,13 @@ class ContactsTable
                     ->label('Name')
                     ->formatStateUsing(fn($record) => $record->first_name . ' ' . $record->last_name)
                     ->searchable(['first_name', 'last_name']),
+                TextColumn::make('last_name')
+                    ->hidden(),
                 TextColumn::make('email')
                     ->label('Email')
                     ->searchable(),
+                PhoneColumn::make('region_code')
+                    ->hidden(),
                 PhoneColumn::make('phone_number')
                     ->label('Phone')
                     ->countryColumn('region_code')
